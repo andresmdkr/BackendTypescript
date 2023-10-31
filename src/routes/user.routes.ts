@@ -4,13 +4,13 @@ import { authMiddleware } from "../middlewares/auth.middleware";
 
 const router = Router().use(authMiddleware);
 
-// OBTENER TODOS
+//Obtener todos los usuarios
 router.get("/", userController.index);
-// CREAR
+//Crear usuario
 router.post("/", userController.create);
-// OBTENER UNO
+//Obtener usuario por ID
 router.get("/:id", userController.show);
-// BORRAR
+//Eliminar usuario por ID
 router.delete("/:id", userController.destroy);
 
 

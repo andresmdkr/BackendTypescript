@@ -52,3 +52,20 @@ export const deleteProduct = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Error al eliminar el producto" });
   }
 };
+
+// Controlador para editar un producto por su ID
+export const editProduct = async (req: Request, res: Response) => {
+  const productId = req.params.id;
+  try {
+    const updatedProduct = await ProductModel.findByIdAndUpdate(productId, req.body, {
+      new: true, 
+    });
+    if (updatedProduct) {
+      res.json(updatedProduct);
+    } else {
+      res.status(404).json({ error: "Producto no encontrado" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Error al editar el producto" });
+  }
+};

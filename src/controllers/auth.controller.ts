@@ -9,12 +9,13 @@ export const signup = async (
   next: NextFunction
 ) => {
   try {
-    const { nombre, email, contraseña, rol } = req.body;
+    const { nombre, email, contraseña, rol, imageUrl} = req.body;
     let user: IUser = new User({
       nombre,
       email,
       contraseña,
       rol,
+      imageUrl
     });
 
     if ((await user.guardarContraseña()) === false) {

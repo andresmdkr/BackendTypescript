@@ -4,18 +4,19 @@ import { authMiddleware } from "../middlewares/auth.middleware";
 import {
   validateAddProduct,
   validateProductId,
+  validateEditProduct,
 } from "../validators/product.validator";
 import { isAdmin } from "../middlewares/product.middleware";
 
 const productRouter = express.Router();
 
-//List Products
+//Obtener todos los productos
 productRouter.get("/", ProductController.listProducts);
 
-//Get product by ID
+//Obtener producto por ID
 productRouter.get("/:id", validateProductId, ProductController.getProductById);
 
-//Upload product
+//Agregar producto
 productRouter.post(
   "/",
   authMiddleware,
@@ -24,7 +25,7 @@ productRouter.post(
   ProductController.addProduct
 );
 
-//Delete product by ID
+//Eliminar producto
 productRouter.delete(
   "/:id",
   authMiddleware,
@@ -32,5 +33,16 @@ productRouter.delete(
   validateProductId,
   ProductController.deleteProduct
 );
+
+// Editar producto
+productRouter.put(
+  "/:id",
+  authMiddleware,
+  isAdmin,
+  validateProductId,
+  validateEditProduct,
+  ProductController.editProduct
+);
+
 
 export default productRouter;
